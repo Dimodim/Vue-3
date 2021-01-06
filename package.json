@@ -1,0 +1,23 @@
+{
+  "name": "Intro-to-Vue-3",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Code-Pop/Intro-to-Vue-3.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Code-Pop/Intro-to-Vue-3/issues"
+  },
+  "homepage": "https://github.com/Code-Pop/Intro-to-Vue-3#readme",
+  "devDependencies": {
+    "typescript": "^4.1.3"
+  }
+}
