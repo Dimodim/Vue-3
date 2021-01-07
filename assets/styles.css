@@ -103,6 +103,10 @@ p {
   flex-wrap: wrap;
 }
 
+.out-of-stock-img {
+  opacity: 0.5;
+}
+
 .product-image,
 .product-info {
   width: 50%;

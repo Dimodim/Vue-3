@@ -11,17 +11,18 @@
   <body>
     <div id="app">
       <div class="nav-bar"></div>
-      <div @click="methods.LogCart()" class="cart">Cart({{ cart.length }})</div>
+      <div @click="LogCart()" class="cart">Cart({{ cart.length }})</div>
       <div class="product-display">
         <div class="product-container">
           <div class="product-image">
-            <img :src="product.image">
+            <img :class="{'out-of-stock-img': !inStock }" :src="image"> 
+            <!-- {'out-of-stock-img': !product.inStock }  -->
           </div>
           <div class="product-info">
-            <h1>{{ product.name }}</h1>
+            <h1>{{ title }}</h1>
             <!-- <h3>{{ product.inStock ? 'In Stock' : 'Out of Stock' }}</h3> -->
-            <h3 v-if="product.quantity > 10">In Stock</h3> <!--  we can use only v-if like in angular2 *ngIf -->
-            <h3 v-else-if="product.quantity < 10 && product.quantity> 0"> Almost Sold Out</h3>  <!-- this works like a normal else if and it seems like these are chained -->
+            <h3 v-if="inStock > 4">In Stock</h3> <!--  we can use only v-if like in angular2 *ngIf -->
+            <h3 v-else-if="inStock <=4 && inStock> 0"> Almost Sold Out</h3>  <!-- this works like a normal else if and it seems like these are chained -->
             <h3 v-else>Out of Stock</h3>
             <!-- <h3 v-show>Out of Stock</h3>  this one does not remove the element just sets display: none to hide it -->
             <p>{{ product.description }}</p>
@@ -30,8 +31,13 @@
                 {{detail}}
               </li>
             </ul>
-            <div v-for="variant in product.variants" :key="variant.id" :id="variant.id" @mouseover="methods.changeImage(variant.image)">
-              {{variant.color}}
+            <div 
+              v-for="(variant,index) in product.variants" 
+              :key="variant.id" 
+              :id="variant.id" 
+              :style="{ background: variant.color }"
+              @mouseover="updateVariant(index)" 
+              class="color-circle">
             </div>
             <div>
               <h3>Sizes:</h3>
@@ -39,7 +45,13 @@
                 {{size}}
               </div>
             </div>
-            <button v-on:click="methods.addSocksToCart('green','43-47')" class="button">Add to Cart</button>  <!-- short for v-on:click  is @click=""-->
+            <button 
+              v-on:click="addSocksToCart()" 
+              :class="{disabledButton: !inStock }"
+              :disabled="!inStock" 
+              class="button"
+              >Add to Cart
+            </button>  <!-- short for v-on:click  is @click="" / :class is like [ngClass] in angular-->
           </div>
         </div>
       </div>
