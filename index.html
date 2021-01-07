@@ -11,7 +11,7 @@
   <body>
     <div id="app">
       <div class="nav-bar"></div>
-      
+      <div @click="methods.LogCart()" class="cart">Cart({{ cart.length }})</div>
       <div class="product-display">
         <div class="product-container">
           <div class="product-image">
@@ -25,6 +25,21 @@
             <h3 v-else>Out of Stock</h3>
             <!-- <h3 v-show>Out of Stock</h3>  this one does not remove the element just sets display: none to hide it -->
             <p>{{ product.description }}</p>
+            <ul>
+              <li v-for="detail in product.details">
+                {{detail}}
+              </li>
+            </ul>
+            <div v-for="variant in product.variants" :key="variant.id" :id="variant.id" @mouseover="methods.changeImage(variant.image)">
+              {{variant.color}}
+            </div>
+            <div>
+              <h3>Sizes:</h3>
+              <div v-for="size in product.sizes" :key="size" :id="size">
+                {{size}}
+              </div>
+            </div>
+            <button v-on:click="methods.addSocksToCart('green','43-47')" class="button">Add to Cart</button>  <!-- short for v-on:click  is @click=""-->
           </div>
         </div>
       </div>
