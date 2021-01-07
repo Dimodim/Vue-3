@@ -16,13 +16,15 @@
         <div class="product-container">
           <div class="product-image">
             <img :src="product.image">
-            <a :url="product.url">link</a>
           </div>
           <div class="product-info">
-          <!-- </div> -->
             <h1>{{ product.name }}</h1>
+            <!-- <h3>{{ product.inStock ? 'In Stock' : 'Out of Stock' }}</h3> -->
+            <h3 v-if="product.quantity > 10">In Stock</h3> <!--  we can use only v-if like in angular2 *ngIf -->
+            <h3 v-else-if="product.quantity < 10 && product.quantity> 0"> Almost Sold Out</h3>  <!-- this works like a normal else if and it seems like these are chained -->
+            <h3 v-else>Out of Stock</h3>
+            <!-- <h3 v-show>Out of Stock</h3>  this one does not remove the element just sets display: none to hide it -->
             <p>{{ product.description }}</p>
-          <!-- </div> -->
           </div>
         </div>
       </div>
