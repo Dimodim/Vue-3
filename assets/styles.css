@@ -4,6 +4,10 @@ body {
   font-family: tahoma;
   color: #282828;
 }
+.title {
+  max-height: 200px;
+  min-height: 200px;
+}
 
 .button {
   margin: 30px;
