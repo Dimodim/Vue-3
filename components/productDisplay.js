@@ -38,14 +38,21 @@ app.component('product-display',{
           </div>
         </div>
         <button 
-          v-on:click="addSocksToCart()" 
+          v-on:click="addSocksToCart" 
           :class="{disabledButton: !inStock }"
           :disabled="!inStock" 
           class="button"
           >Add to Cart
         </button>  <!-- short for v-on:click  is @click="" / :class is like [ngClass] in angular-->
+        <button 
+          v-on:click="removeSocksOffCart" 
+          class="button remove-button"
+          >Remove off Cart
+        </button>  
       </div>
     </div>
+    <review-form @review-submitted="addReview"></review-form>
+    <review-list v-if="product.reviews.length" :reviews="product.reviews" ></review-list>
   </div>`,
   data: function(){
     return {
@@ -56,6 +63,7 @@ app.component('product-display',{
             brand:'Vue Mastery',
             selectedVariant: 0,
             details: ['50% cotton', '30% wool', '20% polyester'],
+            reviews: [],
             variants: [
                 {
                     id: 2234, 
@@ -81,28 +89,22 @@ app.component('product-display',{
     };
 },
 methods: {
-    addSocksToCart() {
-        if(this.inStock){
-            this.cart.push(
-                {
-                    product: {
-                        name: this.product.name,
-                        color: this.product.variants[this.product.selectedVariant].color, 
-                        details:this.product.details,
-                        image: this.product.variants[this.product.selectedVariant].image,
-                        description: this.product.description,
-                    }
-                }
-            );
-            --this.product.variants[this.product.selectedVariant].quantity;
-        }
+    removeSocksOffCart() {
+        this.$emit('remove-to-cart');
     },
-    LogCart(){
-        console.log(this.cart);
+    addSocksToCart() {
+      if(this.inStock){
+        this.$emit('add-to-cart',this.product);
+        --this.product.variants[this.product.selectedVariant].quantity;
+      }
     },
     updateVariant(index){
         this.product.selectedVariant = index;
         
+    },
+    addReview(review){
+      this.product.reviews.push(review);
+      console.log(this.product.reviews)
     }
 },
 computed: {

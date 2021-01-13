@@ -14,7 +14,7 @@
 
       <div @click="LogCart()" class="cart">Cart({{ cart.length }})</div>
 
-      <product-display :premium="premium"></product-display>
+      <product-display @add-to-cart="addSocksToCart" @remove-to-cart="removeSocksToCart" :premium="premium"></product-display>
     </div>
 
     <!-- Import App -->
@@ -23,6 +23,8 @@
     <!-- Import Component -->
     <script src="./components/productDisplay.js"></script>
     <script src="./components/productDetails.js"></script>
+    <script src="./components/ReviewForm.js"></script>
+    <script src="./components/ReviewList.js"></script>
 
     <!-- Mount App -->
     <script>
